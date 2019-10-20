@@ -121,7 +121,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     [LAYER_EMOJI] = LAYOUT_65(
-        UNICODE_MODE_WIN,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,   _______,   _______,
+        UNICODE_MODE_WINC,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,   _______,   _______,
         UNICODE_MODE_OSX,  X(CLAP),  X(DRIP),  X(BNIS),  X(JOY),  X(CAR) ,  X(FIRE),  X(REDB),  X(MONY),  X(HNDR),  X(SOS) ,  _______,  _______,  _______,   _______,
         _______,           X(CELE),  X(PRAY),  X(NAIL),  X(OK)  ,  X(THNK),  X(UNAM),  X(HEYE),  X(COOL),  X(EYES),  X(SMIR),  _______,  _______,  _______,
         _______,           X(TRIU),  X(SCRM),  X(VOMI),  X(DTIV),  X(EXPL),  X(HAIR),  X(DANC),  X(STRN),  X(LEFT),  X(RGHT),  _______,  _______,  _______,

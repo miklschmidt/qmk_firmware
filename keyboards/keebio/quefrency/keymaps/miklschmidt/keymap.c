@@ -1,8 +1,5 @@
 #include QMK_KEYBOARD_H
 
-static uint16_t last_rgb;
-static uint8_t rgb_state[RGBLED_NUM];
-
 enum layer {
     LAYER_DEFAULT,
     LAYER_FUNCTION,
@@ -12,76 +9,66 @@ enum layer {
 
 enum emoji_map {
   JOY, // 😂
-  UNAM, // unamused 😒
-  HEYE, // smiling face with heart shaped eyes 😍
-  OK, // ok hand sign 👌
-  SMIR, // smirk 😏
-  PRAY, // pray 🙏
-  CELE, // celebration 🙌
-  COOL, // smile with sunglasses 😎
-  EYES, // eyes 👀
-  THNK, // BIG THONK
-  NAIL, // Nailcare
-  SOS, // Vuile sos
-  REDB, // Red B
-  HNDR, // 100
-  MONY,
-  FIRE,
-  CAR,
-  BUTT,
-  BNIS,
-  DRIP,
-  CLAP,
-  TRIU, // Fart from nose
-  SCRM,
-  VOMI,
-  DTIV, // Detective
-  EXPL, // Brainsplosion
-  HAIR, // Haircut
-  DANC, // Salsa dancer
-  STRN, // Stronk
-  LEFT, // Point Left
-  RGHT, // Point Right
-  AE,
-  AA,
-  OE,
-  SHIFTAE,
-  SHIFTAA,
-  SHIFTOE
+  SWEATSMILE, // 😅
+  XD, // 😆
+  UNAMUSED, // 😒
+  HEARTEYES, // 😍
+  OK, // 👌
+  SMIRK, // 😏
+  PRAY, // 🙏
+  STRONK, // 💪
+  KISS, // 😘
+  ANGRY, // 😡
+  TOUNGUE, // 😜
+  SCARED, // 😱
+  FLUSHED, // 😳
+  MOAN, // 😩
+  FIST, // ✊
+  PEACE, // ✌
+  HEART, // ❤
+  UP, //👆
+  DOWN, //👇
+  LEFT, //👈
+  RIGHT, //👉
+  THUMBSUP, //👍
+  THUMBSDOWN, //👎
+  CLAP, // 👏
+  FIRE, // 🔥
+  AE, // æ
+  AA, // å
+  OE, // ø
+  SHIFTAE, // Æ
+  SHIFTAA, // Å
+  SHIFTOE // Ø
 };
 
 const uint32_t PROGMEM unicode_map[] = {
   [JOY] = 0x1F602,
-  [UNAM] = 0x1F612,
-  [HEYE] = 0x1f60d,
+  [SWEATSMILE] = 0x1F605,
+  [XD] = 0x1F606,
+  [UNAMUSED] = 0x1F612,
+  [HEARTEYES] = 0x1f60d,
   [OK]   = 0x1F44C,
-  [SMIR] = 0x1F60F,
+  [SMIRK] = 0x1F60F,
   [PRAY] = 0x1F64F,
-  [CELE] = 0x1F64C,
-  [COOL] = 0x1F60E,
-  [EYES] = 0x1F440,
-  [THNK] = 0x1F914,
-  [NAIL] = 0x1F485,
-  [SOS] = 0x1F198,
-  [REDB] = 0x1F171,
-  [HNDR] = 0x1F4AF,
-  [MONY] = 0x1F480,
-  [FIRE] = 0x1F525,
-  [CAR] = 0x1F697,
-  [BUTT] = 0x1F351,
-  [BNIS] = 0x1F346,
-  [DRIP] = 0x1F4A6,
-  [CLAP] = 0x1F44F,
-  [TRIU] = 0x1F624,
-  [SCRM] = 0x1F631,
-  [VOMI] = 0x1F92E,
-  [DTIV] = 0x1F575,
-  [EXPL] = 0x1F92F,
-  [HAIR] = 0x2640,
-  [DANC] = 0x1F483,
-  [STRN] = 0x1F4AA,
+  [STRONK] = 0x1F4AA,
+  [KISS] = 0x1F618,
+  [ANGRY] = 0x1F621,
+  [TOUNGUE] = 0x1F61C,
+  [SCARED] = 0x1F631,
+  [FLUSHED] = 0x1F633,
+  [MOAN] = 0x1F629,
+  [PEACE] = 0x270C,
+  [HEART] = 0x2764,
+  [FIST] = 0x270A,
+  [UP] = 0x1F446,
+  [DOWN] = 0x1F447,
   [LEFT] = 0x1F448,
-  [RGHT] = 0x1F449,
+  [RIGHT] = 0x1F449,
+  [THUMBSUP] = 0x1F44D,
+  [THUMBSDOWN] = 0x1F44E,
+  [CLAP] = 0x1F44F,
+  [FIRE] = 0x1F525,
   [AE] = 0x00E6,
   [OE] = 0x00F8,
   [AA] = 0x00E5,
@@ -113,20 +100,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     [LAYER_UTIL] = LAYOUT_65(
-        _______,  _______,  _______,  _______,  _______,  _______,  KC_BSPC,  _______,  _______,  _______,  _______,         _______,          _______,  _______,  _______,   RGB_SAI,
-        _______,  KC_MPLY,  KC_VOLU,  KC_MSTP,  _______,  KC_I,     _______,  _______,  _______,  _______,  _______,         XP(AA, SHIFTAA),  _______,  _______,  RGB_SAD,
-        KC_CAPS,  KC_MPRV,  KC_VOLD,  KC_MNXT,  _______,  KC_P,     _______,  _______,  _______,  _______,  XP(AE, SHIFTAE), XP(OE, SHIFTOE),  RGB_TOG,  RGB_HUI,
-        _______,  _______,  KC_MUTE,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,         _______,          RGB_VAI,  RGB_HUD,
-        _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  RGB_RMOD,        RGB_VAD,          RGB_MOD
+        _______,  KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,   KC_F11,   KC_F12,   X(THUMBSDOWN),   X(THUMBSDOWN),   X(FIST),
+        _______,  KC_MPLY,  KC_VOLU,  KC_MSTP,  _______,  KC_I,     _______,  _______,  _______,  _______,  _______,         XP(AA, SHIFTAA),  _______,  _______,  _______,
+        KC_CAPS,  KC_MPRV,  KC_VOLD,  KC_MNXT,  _______,  KC_P,     _______,  _______,  _______,  _______,  XP(AE, SHIFTAE), XP(OE, SHIFTOE),  X(THUMBSUP),  _______,
+        _______,  _______,  KC_MUTE,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,         _______,          X(UP),  _______,
+        _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  X(LEFT),         X(DOWN),          X(RIGHT)
     ),
 
     [LAYER_EMOJI] = LAYOUT_65(
-        UNICODE_MODE_WINC,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,   _______,   _______,
-        UNICODE_MODE_OSX,  X(CLAP),  X(DRIP),  X(BNIS),  X(JOY),  X(CAR) ,  X(FIRE),  X(REDB),  X(MONY),  X(HNDR),  X(SOS) ,  _______,  _______,  _______,   _______,
-        _______,           X(CELE),  X(PRAY),  X(NAIL),  X(OK)  ,  X(THNK),  X(UNAM),  X(HEYE),  X(COOL),  X(EYES),  X(SMIR),  _______,  _______,  _______,
-        _______,           X(TRIU),  X(SCRM),  X(VOMI),  X(DTIV),  X(EXPL),  X(HAIR),  X(DANC),  X(STRN),  X(LEFT),  X(RGHT),  _______,  _______,  _______,
-        _______,           _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______
-    ),
+        UNICODE_MODE_WINC,   X(FIRE),     X(HEARTEYES), _______,        _______,        _______,            _______,    _______,    _______,    _______,    _______,  _______,  _______,  _______,  _______,  _______,
+        UNICODE_MODE_OSX,    X(ANGRY),    X(SMIRK),     X(SWEATSMILE),  X(JOY),         X(HEARTEYES),       _______,    _______,    _______,    _______,    _______,  _______,  _______,  _______,  _______,
+        _______,             X(TOUNGUE),  X(SCARED),    X(FLUSHED),     X(MOAN),        X(STRONK),          _______,    _______,    _______,    _______,    _______,  _______,  _______,  _______,
+        _______,             X(FIST),     X(XD),        X(PEACE),       X(THUMBSUP),    X(THUMBSDOWN),      _______,    _______,    _______,    _______,    _______,  _______,  X(UP),    _______,
+        _______,             _______,     _______,      X(KISS),        _______,        _______,            _______,    _______,    _______,    _______,    X(LEFT),  X(DOWN),  X(RIGHT)
+    )
 
 };
 
@@ -136,43 +123,6 @@ void keyboard_post_init_user(void) {
     // debug_matrix = false;
     // debug_keyboard=true;
     // debug_mouse=true; s
-}
-
-void matrix_init_user(void) {
-    last_rgb = timer_read();
-    rgblight_setrgb(0, 0, 0);
-
-    for (int i = 0; i < RGBLED_NUM; i++) {
-        rgb_state[i] = 0;
-    }
-}
-
-void matrix_scan_user(void) {
-    // Animate the ripple effect at 50Hz (20ms interval):
-
-    if (timer_elapsed(last_rgb) > 20) {
-        last_rgb = timer_read();
-
-        uint8_t next_rgb_state[RGBLED_NUM];
-        for (int i = 0; i < RGBLED_NUM; i++) {
-
-            // Retain some:
-            next_rgb_state[i] = rgb_state[i] * RGB_SUSTAIN;
-
-            // Accept some from neighbors ...
-
-            // Lower neighbor, excluding lower bound of each hand:
-            if (i != 0 && i != RGBLED_NUM / 2) {
-                next_rgb_state[i] += rgb_state[i - 1] * RGB_PROPAGATE;
-            }
-            // Upper neighbor, excluding upper bound of each hand:
-            if (i != RGBLED_NUM / 2 - 1 && i != RGBLED_NUM - 1) {
-                next_rgb_state[i] += rgb_state[i + 1] * RGB_PROPAGATE;
-            }
-            led[i].r = next_rgb_state[i];
-        }
-        rgblight_set();
-    }
 }
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {

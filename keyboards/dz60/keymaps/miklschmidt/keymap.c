@@ -112,7 +112,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    */
 
     [LAYER_UTIL] = LAYOUT_directional(
-        KC_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,  KC_F10, KC_F11, KC_F12, _______, RESET,
+        KC_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,  KC_F10, KC_F11, KC_F12, KC_DEL, KC_DEL,
         _______, KC_MPLY, KC_VOLU, KC_MSTP, _______, KC_I,    _______, _______, _______, _______, _______, XP(AA, SHIFTAA), _______, _______,
         KC_CAPS, KC_MPRV, KC_VOLD, KC_MNXT, _______, KC_P,    _______, _______, _______, _______, XP(AE, SHIFTAE), XP(OE, SHIFTOE),  X(THUMBSUP),
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, X(UP), _______,
@@ -120,7 +120,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     [LAYER_EMOJI] = LAYOUT_directional(
-        UNICODE_MODE_WINC,   X(FIRE),     X(HEARTEYES), _______,        _______,        _______,            _______,    _______,    _______,    _______,    _______,  _______,  _______,  _______,  _______,
+        UNICODE_MODE_WINC,   X(FIRE),     X(HEARTEYES), _______,        _______,        _______,            _______,    _______,    _______,    _______,    _______,  _______,  _______,  RESET,  RESET,
         UNICODE_MODE_OSX,    X(ANGRY),    X(SMIRK),     X(SWEATSMILE),  X(JOY),         X(HEARTEYES),       _______,    _______,    _______,    _______,    _______,  _______,  _______,  _______,
         _______,             X(TOUNGUE),  X(SCARED),    X(FLUSHED),     X(MOAN),        X(STRONK),          _______,    _______,    _______,    _______,    _______,  _______,  _______,
         _______,             _______,     X(XD),        X(KISS),        X(THUMBSUP),    X(THUMBSDOWN),      _______,    _______,    _______,    _______,    _______,  _______, X(UP), _______,

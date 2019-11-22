@@ -1,5 +1,6 @@
 #pragma once
-
+#undef PRODUCT
+#define PRODUCT         MiklsQuefrency
 /*
  * I2C seems to randomly drop keystrokes. Not sure why. It seems a bit like
  * https://github.com/qmk/qmk_firmware/issues/5037, but that issue is closed,
@@ -13,7 +14,7 @@
  * For now, just don't use I2C.
  */
 #define USE_SERIAL
-#define TAP_CODE_DELAY 56
+// #define TAP_CODE_DELAY 56
 
 // Use another port than b6, it's dead on the right Elite-C
 #undef MATRIX_COL_PINS_RIGHT

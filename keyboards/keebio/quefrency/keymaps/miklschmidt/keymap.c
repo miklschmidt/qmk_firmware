@@ -83,7 +83,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TAB,   KC_Q,     KC_W,     KC_E,     KC_R,            KC_T,     KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,     KC_LBRC,  KC_RBRC,  KC_BSLS,  KC_GRV,
         KC_CAPS,  KC_A,     KC_S,     KC_D,     KC_F,            KC_G,     KC_H,     KC_J,     KC_K,     KC_L,     KC_SCLN,  KC_QUOT,  KC_ENT,   KC_HOME,
         KC_LSFT,  KC_Z,     KC_X,     KC_C,     KC_V,            KC_B,     KC_N,     KC_M,     KC_COMM,  KC_DOT,   KC_SLSH,  KC_RSFT,  KC_UP,    KC_END,
-        KC_LCTL,  KC_LALT,  KC_LGUI,  KC_SPC,   LY_UTIL,  LY_EMOJI, LY_FN,    KC_RGUI,  KC_RALT,  KC_RCTL,  KC_LEFT,  KC_DOWN,  KC_RGHT
+        KC_LCTL,  KC_LALT,  KC_LGUI,  KC_SPC,   LY_UTIL,  LY_EMOJI, LY_EMOJI,    LY_EMOJI,  KC_RALT,  KC_RCTL,  KC_LEFT,  KC_DOWN,  KC_RGHT
     ),
 
     [LAYER_FUNCTION] = LAYOUT_65(
@@ -112,37 +112,25 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-void keyboard_post_init_user(void) {
-    // Customise these values to desired behaviour
-    debug_enable = true;
-    debug_matrix = false;
-    debug_keyboard = true;
-    debug_mouse = false;
-    rgblight_mode(14);
+
+uint32_t layer_state_set_user(uint32_t state)
+{
+  switch (biton32(state))
+  {
+    case LAYER_EMOJI:
+      rgblight_mode(RGBLIGHT_MODE_RAINBOW_SWIRL+5);
+      break;
+    case LAYER_UTIL:
+      rgblight_mode(RGBLIGHT_MODE_SNAKE+3);
+      rgblight_sethsv(12, 255, 255);
+    //   rgblight_sethsv(HSV_TEAL);
+      break;
+    default:
+    case LAYER_DEFAULT:
+      rgblight_mode(RGBLIGHT_MODE_STATIC_LIGHT);
+      rgblight_sethsv(12, 255, 255);
+    //   rgblight_sethsv(HSV_TEAL);
+      break;
+  }
+  return state;
 }
-
-void eeconfig_init_user(void) {
-  set_unicode_input_mode(UC_OSX);
-};
-
-// RGB Based on layers
-// uint32_t layer_state_set_user(uint32_t state) {
-//     switch (biton32(state)) {
-//     case LAYER_FUNCTION:
-//         rgblight_mode(1);
-//         rgblight_setrgb(RGB_CYAN);
-//         break;
-//     case LAYER_UTIL:
-//         rgblight_mode(1);
-//         rgblight_setrgb(RGB_PINK);
-//         break;
-//     case LAYER_EMOJI:
-//         rgblight_mode(1);
-//         rgblight_setrgb(RGB_ORANGE);
-//         break;
-//     default: //  for any other layers, or the default layer
-//         rgblight_mode(14);
-//         break;
-//     }
-//   return state;
-// }

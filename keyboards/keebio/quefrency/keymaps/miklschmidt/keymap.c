@@ -98,7 +98,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     [LAYER_POE] = LAYOUT_65(
-        KC_TRNS,   KC_TRNS,      FLASK2,       FLASK3,          FLASK4,          KC_KP_5,        KC_KP_6,    KC_KP_7,    KC_KP_8,    KC_KP_9,    KC_KP_0,  KC_TRNS,  KC_TRNS,    KC_TRNS,  KC_TRNS,  KC_TRNS,
+        KC_TRNS,   KC_TRNS,      FLASK2,       FLASK3,          FLASK4,          KC_TRNS,        KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,  KC_TRNS,  KC_TRNS,    KC_TRNS,  KC_TRNS,  KC_TRNS,
         KC_TRNS,   KC_TRNS,      KC_TRNS,      KC_TRNS,         KC_TRNS,         KC_TRNS,        KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,  KC_TRNS,  KC_TRNS,    KC_TRNS,  KC_TRNS,
         KC_TRNS,   KC_TRNS,      KC_TRNS,      KC_TRNS,         KC_TRNS,         KC_TRNS,        KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,  KC_TRNS,  KC_TRNS,    KC_TRNS,
         KC_TRNS,   KC_TRNS,      KC_TRNS,      KC_TRNS,         KC_TRNS,         KC_TRNS,        KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,  KC_TRNS,  KC_TRNS,    KC_TRNS,

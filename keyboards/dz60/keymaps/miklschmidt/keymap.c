@@ -1,7 +1,16 @@
 #include QMK_KEYBOARD_H
 
+enum macro_keys {
+    HIDEOUT = SAFE_RANGE,
+    FLASK1,
+    FLASK2,
+    FLASK3,
+    FLASK4
+};
+
 enum layer {
     LAYER_DEFAULT,
+    LAYER_POE,
     LAYER_EMOJI,
     LAYER_UTIL,
 };
@@ -92,9 +101,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [LAYER_DEFAULT] = LAYOUT_directional(
         KC_ESC, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0, KC_MINS, KC_EQL, KC_BSPC, KC_BSPC,
         KC_TAB, KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, KC_LBRC, KC_RBRC, KC_BSLS,
-        KC_CAPS, KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K, KC_L, KC_SCLN, KC_QUOT, KC_ENT,
+        TG(LAYER_POE), KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K, KC_L, KC_SCLN, KC_QUOT, KC_ENT,
         KC_LSFT,         KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH, KC_RSFT, KC_UP, KC_DEL,
         KC_LCTL, KC_LALT, KC_LGUI, KC_SPC, MO(LAYER_UTIL), KC_RSFT, MO(LAYER_EMOJI), KC_RALT, KC_LEFT, KC_DOWN, KC_RIGHT
+    ),
+    [LAYER_POE] = LAYOUT_directional(
+        _______,  _______,   _______,   FLASK3,   FLASK4,   _______,   _______,   _______,   _______,   _______,  _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______, _______,    _______, _______, _______, _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______, _______,    _______, _______, _______, _______, _______, _______,  _______,
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______, _______, _______, _______, _______,         _______,          _______
     ),
 
   /* FN Layer
@@ -112,15 +128,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    */
 
     [LAYER_UTIL] = LAYOUT_directional(
-        _______,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,  KC_F10, KC_F11, KC_F12, KC_DEL, KC_DEL,
+        _______,  FLASK1,   FLASK2,   FLASK3,   FLASK4,   KC_5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,  KC_F10, KC_F11, KC_F12, KC_DEL, KC_DEL,
         _______, KC_MPLY, KC_VOLU, KC_MSTP, _______, KC_I,    _______, _______, _______, _______, _______, XP(AA, SHIFTAA), _______, KC_GRAVE,
-        KC_CAPS, KC_MPRV, KC_VOLD, KC_MNXT, _______, KC_P,    _______, _______, _______, _______, XP(AE, SHIFTAE), XP(OE, SHIFTOE),  X(THUMBSUP),
+        KC_CAPS, KC_MPRV, KC_VOLD, KC_MNXT, _______, KC_P,    HIDEOUT, _______, _______, _______, XP(AE, SHIFTAE), XP(OE, SHIFTOE),  X(THUMBSUP),
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, X(UP), _______,
         _______, _______, _______, _______, _______, _______, _______, _______, X(LEFT),         X(DOWN),          X(RIGHT)
     ),
 
     [LAYER_EMOJI] = LAYOUT_directional(
-        UNICODE_MODE_WINC,   X(FIRE),     X(HEARTEYES), _______,        _______,        _______,            _______,    _______,    _______,    _______,    _______,  _______,  _______,  RESET,  RESET,
+        UNICODE_MODE_WINC,   KC_F1,     KC_F2,      KC_F3,        KC_F4,        KC_F5,            KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,  _______,  _______,  RESET,  RESET,
         UNICODE_MODE_OSX,    X(ANGRY),    X(SMIRK),     X(SWEATSMILE),  X(JOY),         X(HEARTEYES),       _______,    _______,    _______,    _______,    _______,  _______,  _______,  _______,
         _______,             X(TOUNGUE),  X(SCARED),    X(FLUSHED),     X(MOAN),        X(STRONK),          _______,    _______,    _______,    _______,    _______,  _______,  _______,
         _______,             _______,     X(XD),        X(KISS),        X(THUMBSUP),    X(THUMBSDOWN),      _______,    _______,    _______,    _______,    _______,  _______, X(UP), _______,
@@ -140,6 +156,11 @@ uint32_t layer_state_set_user(uint32_t state)
       // rgblight_sethsv(12, 255, 255);
       rgblight_sethsv(HSV_TEAL);
       break;
+    case LAYER_POE:
+      rgblight_mode(RGBLIGHT_MODE_STATIC_LIGHT);
+      // rgblight_sethsv(12, 255, 255);
+      rgblight_sethsv(HSV_RED);
+      break;
     default:
     case LAYER_DEFAULT:
       rgblight_mode(RGBLIGHT_MODE_STATIC_LIGHT);
@@ -148,4 +169,47 @@ uint32_t layer_state_set_user(uint32_t state)
       break;
   }
   return state;
+}
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case HIDEOUT:
+            if (record->event.pressed) {
+                tap_code(KC_ENT);
+                SEND_STRING("/hideout");
+                tap_code(KC_ENT);
+            }
+            break;
+        case FLASK1:
+            if (record->event.pressed) {
+                tap_code(KC_1);
+                tap_code(KC_2);
+                tap_code(KC_3);
+                tap_code(KC_4);
+                tap_code(KC_5);
+            }
+            break;
+        case FLASK2:
+            if (record->event.pressed) {
+                tap_code(KC_2);
+                tap_code(KC_3);
+                tap_code(KC_4);
+                tap_code(KC_5);
+            }
+            break;
+        case FLASK3:
+            if (record->event.pressed) {
+                tap_code(KC_3);
+                tap_code(KC_4);
+                tap_code(KC_5);
+            }
+            break;
+        case FLASK4:
+            if (record->event.pressed) {
+                tap_code(KC_4);
+                tap_code(KC_5);
+            }
+            break;
+    }
+    return true;
 }

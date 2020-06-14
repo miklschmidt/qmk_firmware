@@ -11,6 +11,9 @@ enum macro_keys {
 enum layer {
     LAYER_DEFAULT,
     LAYER_POE,
+    LAYER_POE_UTIL,
+    LAYER_ARROWS,
+    LAYER_ARROWS_ALT,
     LAYER_EMOJI,
     LAYER_UTIL,
 };
@@ -84,7 +87,7 @@ const uint32_t PROGMEM unicode_map[] = {
 #define LY_EMOJI MO(LAYER_EMOJI)
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-  /* Qwerty
+/* Qwerty
    * ,-----------------------------------------------------------------------------------------.
    * | ` ~ |  1  |  2  |  3  |  4  |  5  |  6  |  7  |  8  |  9  |  0  |  -  |  =  | Backspace |
    * |-----------------------------------------------------------------------------------------+
@@ -92,25 +95,25 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |-----------------------------------------------------------------------------------------+
    * | Caps    |  A  |  S  |  D  |  F  |  G  |  H  |  J  |  K  |  L  |  ;  |  '  |    Enter    |
    * |-----------------------------------------------------------------------------------------+
-   * | Shift     |  Z  |  X  |  C  |  V  |  B  |  N  |  M  |  ,  |  .  |  /  | RSh |  U  |     |
+   * │Shift│ app │  Z  │  X  │  C  │  V  │  B  │  N  │  M  │  ,  │  .  │  /  │   shift   │ fn  │
    * |-----------------------------------------------------------------------------------------+
-   * | Ctrl |  Cmd  |  Alt  |   Space    |  FN  |      RSh      | FN | RAlt  |  L  |  D  |  R  |
+   * | Ctrl |  Cmd  |  Alt  |   Space    |  FN  |     Space     |  FN  | RAlt |  menu |  ctrl  |
    * `-----------------------------------------------------------------------------------------'
-   */
-
-    [LAYER_DEFAULT] = LAYOUT_directional(
-        KC_ESC, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0, KC_MINS, KC_EQL, KC_BSPC, KC_BSPC,
+*/
+    [LAYER_DEFAULT] = LAYOUT_60_ansi_split_space_rshift_lshift(
+        KC_ESC, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0, KC_MINS, KC_EQL, KC_BSPC,
         KC_TAB, KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, KC_LBRC, KC_RBRC, KC_BSLS,
         TG(LAYER_POE), KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K, KC_L, KC_SCLN, KC_QUOT, KC_ENT,
-        KC_LSFT,         KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH, KC_RSFT, KC_UP, KC_DEL,
-        KC_LCTL, KC_LALT, KC_LGUI, KC_SPC, MO(LAYER_UTIL), KC_RSFT, MO(LAYER_EMOJI), KC_RALT, KC_LEFT, KC_DOWN, KC_RIGHT
+        KC_LSFT,  MO(LAYER_ARROWS),   KC_Z,   KC_X,  KC_C,   KC_V,   KC_B,  KC_N,   KC_M,   KC_COMM,   KC_DOT,  KC_SLSH, KC_RSFT,   MO(LAYER_ARROWS),
+        KC_LCTL, KC_LALT, KC_LGUI, KC_SPC, MO(LAYER_UTIL), KC_SPC, MO(LAYER_EMOJI),  MO(LAYER_ARROWS_ALT), KC_RALT, KC_RCTL
     ),
-    [LAYER_POE] = LAYOUT_directional(
-        _______,  _______,   _______,   FLASK3,   FLASK4,   _______,   _______,   _______,   _______,   _______,  _______, _______, _______, _______, _______,
+
+    [LAYER_POE] = LAYOUT_60_ansi_split_space_rshift_lshift(
+        _______,  _______,   _______,   FLASK3,   FLASK4,   _______,   _______,   _______,   _______,   _______,  _______, _______, _______, _______,
         _______, _______, _______, _______, _______, _______,    _______, _______, _______, _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______, _______,    _______, _______, _______, _______, _______, _______,  _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-        _______, _______, _______, _______, _______, _______, _______, _______, _______,         _______,          _______
+        _______, _______, _______, _______, MO(LAYER_POE_UTIL), _______, _______, _______,          _______,
     ),
 
   /* FN Layer
@@ -127,49 +130,48 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * `-----------------------------------------------------------------------------------------'
    */
 
-    [LAYER_UTIL] = LAYOUT_directional(
-        _______,  FLASK1,   FLASK2,   FLASK3,   FLASK4,   KC_5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,  KC_F10, KC_F11, KC_F12, KC_DEL, KC_DEL,
-        _______, KC_MPLY, KC_VOLU, KC_MSTP, _______, KC_I,    _______, _______, _______, _______, _______, XP(AA, SHIFTAA), _______, KC_GRAVE,
-        KC_CAPS, KC_MPRV, KC_VOLD, KC_MNXT, _______, KC_P,    HIDEOUT, _______, _______, _______, XP(AE, SHIFTAE), XP(OE, SHIFTOE),  X(THUMBSUP),
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, X(UP), _______,
-        _______, _______, _______, _______, _______, _______, _______, _______, X(LEFT),         X(DOWN),          X(RIGHT)
+    [LAYER_UTIL] = LAYOUT_60_ansi_split_space_rshift_lshift(
+        _______,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,  KC_F10, KC_F11, KC_F12, KC_DEL,
+        _______, KC_MPLY, KC_VOLU, KC_MSTP, _______, _______, _______, _______, _______, _______, _______, XP(AA, SHIFTAA), _______, KC_GRAVE,
+        KC_CAPS, KC_MPRV, KC_VOLD, KC_MNXT, _______, _______, _______, _______, _______, _______, XP(AE, SHIFTAE), XP(OE, SHIFTOE),  X(THUMBSUP),
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______, KC_UP, _______,
+        _______, _______, _______, _______, _______, _______, _______, KC_LEFT, KC_DOWN, KC_RIGHT
     ),
 
-    [LAYER_EMOJI] = LAYOUT_directional(
-        UNICODE_MODE_WINC,   KC_F1,     KC_F2,      KC_F3,        KC_F4,        KC_F5,            KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,  _______,  _______,  RESET,  RESET,
+    [LAYER_POE_UTIL] = LAYOUT_60_ansi_split_space_rshift_lshift(
+        _______,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,  KC_F10, KC_F11, KC_F12, KC_DEL,
+        _______, KC_MPLY, KC_VOLU, KC_MSTP, _______, KC_I,    _______, _______, _______, _______, _______, XP(AA, SHIFTAA), _______, KC_GRAVE,
+        KC_CAPS, KC_MPRV, KC_VOLD, KC_MNXT, _______, KC_P,    HIDEOUT, _______, _______, _______, XP(AE, SHIFTAE), XP(OE, SHIFTOE),  X(THUMBSUP),
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_UP, _______,
+        _______, _______, _______, _______, _______, _______, _______, KC_LEFT, KC_DOWN, KC_RIGHT
+    ),
+
+
+    [LAYER_ARROWS] = LAYOUT_60_ansi_split_space_rshift_lshift(
+        _______,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,  KC_F10, KC_F11, KC_F12, KC_DEL,
+        _______, _______, KC_UP, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_GRAVE,
+        _______, KC_LEFT, KC_DOWN, KC_RIGHT, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,  KC_UP, _______,
+        _______, _______, _______, _______, _______, _______, _______, KC_LEFT, KC_DOWN, KC_RIGHT
+    ),
+
+    [LAYER_ARROWS_ALT] = LAYOUT_60_ansi_split_space_rshift_lshift(
+        _______,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,  KC_F10, KC_F11, KC_F12, KC_DEL,
+        _______, _______, KC_UP, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_GRAVE,
+        _______, KC_LEFT, KC_DOWN, KC_RIGHT, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
+    ),
+
+    [LAYER_EMOJI] = LAYOUT_60_ansi_split_space_rshift_lshift(
+        UNICODE_MODE_WINC,   KC_KP_1,     KC_KP_2,      KC_KP_3,        KC_KP_4,        KC_KP_5,            KC_KP_6,    KC_KP_7,    KC_KP_8,    KC_KP_9,    KC_KP_0,  _______,  _______,  RESET,
         UNICODE_MODE_OSX,    X(ANGRY),    X(SMIRK),     X(SWEATSMILE),  X(JOY),         X(HEARTEYES),       _______,    _______,    _______,    _______,    _______,  _______,  _______,  _______,
         _______,             X(TOUNGUE),  X(SCARED),    X(FLUSHED),     X(MOAN),        X(STRONK),          _______,    _______,    _______,    _______,    _______,  _______,  _______,
-        _______,             _______,     X(XD),        X(KISS),        X(THUMBSUP),    X(THUMBSDOWN),      _______,    _______,    _______,    _______,    _______,  _______, X(UP), _______,
-        _______,             _______,     _______,      _______,        _______,        _______,    _______,    _______,    X(LEFT),  X(DOWN),  X(RIGHT)
+        _______,             _______,     X(XD),        X(KISS),        X(THUMBSUP),    X(THUMBSDOWN),      _______,    _______,    _______,    _______,    _______,  _______, _______, _______,
+        _______,             _______,     _______,      _______,        _______,        _______,    _______,    _______,    _______,
     )
 };
 
-uint32_t layer_state_set_user(uint32_t state)
-{
-  switch (biton32(state))
-  {
-    case LAYER_EMOJI:
-      rgblight_mode(RGBLIGHT_MODE_RAINBOW_SWIRL+5);
-      break;
-    case LAYER_UTIL:
-      rgblight_mode(RGBLIGHT_MODE_SNAKE+3);
-      // rgblight_sethsv(12, 255, 255);
-      rgblight_sethsv(HSV_TEAL);
-      break;
-    case LAYER_POE:
-      rgblight_mode(RGBLIGHT_MODE_STATIC_LIGHT);
-      // rgblight_sethsv(12, 255, 255);
-      rgblight_sethsv(HSV_RED);
-      break;
-    default:
-    case LAYER_DEFAULT:
-      rgblight_mode(RGBLIGHT_MODE_STATIC_LIGHT);
-      // rgblight_sethsv(12, 255, 255);
-      rgblight_sethsv(HSV_TEAL);
-      break;
-  }
-  return state;
-}
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
